@@ -7,7 +7,6 @@ import (
 	"errors"
 	"os"
 	"os/signal"
-	"syscall"
 )
 
 var (
@@ -49,7 +48,7 @@ func (m *Mainloop) Bind(sig os.Signal, f func()) (err error) {
 //
 // If the signal is not bound to a handler function, then this method is
 // effectively a no-op.
-func (m *Mainloop) Unbind(sig syscall.Signal) {
+func (m *Mainloop) Unbind(sig os.Signal) {
 	delete(m.Bindings, sig)
 	return
 }
