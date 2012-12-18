@@ -6,18 +6,32 @@ Some utility libraries for Go that aren't special enough to warrant their own re
 `goutils/daemon/mainloop`
 -------------------------
 
-A really simple mainloop that listens for SIGTERM, SIGKILL and SIGHUP signals
-from the operating system.
-
-To use this simple main-loop, after `go get`ting the package, just put
-`mainloop.Start()` at the end of your `main()` function.
+A really simple mainloop that allows you to bind OS signals to handler
+functions so you can easily catch any signals that get sent to your daemon.
+Here's an example:
 
 ```go
-import "github.com/nesv/goutils/daemon/mainloop"
+import (
+    "fmt"
+    "github.com/nesv/goutils/daemon/mainloop"
+    "syscall"
+)
+
+func HupHandler() {
+    fmt.Println("caught SIGHUP")
+    return
+}
+
+func IntHandler() {
+    fmt.Println("caugh SIGINT")
+    return
+}
 
 func main() {
-	...
-	mainloop.Start()
+    m := mainloop.New()
+	m.Bind(syscall.SIGHUP, HupHandler)
+    m.Bind(syscall.SIGINT, IntHandler)
+	m.Start()
 	return
 }
 ```
