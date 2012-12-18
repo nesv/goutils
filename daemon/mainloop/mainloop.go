@@ -11,8 +11,7 @@ import (
 )
 
 var (
-	SignalAlreadyBoundError        = errors.New("Signal is already bound to a function")
-	CannotUnbindUnboundSignalError = errors.New("Signal is not bound to a function")
+	SignalAlreadyBoundError = errors.New("Signal is already bound to a function")
 )
 
 // This struct represents the mainloop for catching operating system signals
@@ -45,7 +44,7 @@ func (m *Mainloop) Bind(sig syscall.Signal, f func()) (err error) {
 	return nil
 }
 
-// Unbind the currently-bound function from the speicifed operating system
+// Unbind the currently-bound function from the specified operating system
 // signal.
 //
 // If the signal is not bound to a handler function, then this method is
