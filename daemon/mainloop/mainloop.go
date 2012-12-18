@@ -60,7 +60,7 @@ func (m *Mainloop) Unbind(sig syscall.Signal) {
 // This method will block its current thread. The best spot for calling this
 // method is right near the bottom of your application's main() function.
 func (m *Mainloop) Start() {
-	sigs := make([]syscall.Signal, len(m.Bindings))
+	sigs := make([]os.Signal, len(m.Bindings))
 	for s, _ := range m.Bindings {
 		sigs = append(sigs, s)
 	}
