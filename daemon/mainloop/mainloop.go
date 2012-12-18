@@ -18,13 +18,13 @@ var (
 // in your application.
 type Mainloop struct {
 	sigchan  chan os.Signal
-	Bindings map[syscall.Signal]func()
+	Bindings map[os.Signal]func()
 }
 
 // Initializes and returns a pointer to a new Mainloop.
 func New() *Mainloop {
 	m := Mainloop{sigchan: make(chan os.Signal),
-		Bindings: make(map[syscall.Signal]func())}
+		Bindings: make(map[os.Signal]func())}
 	return &m
 }
 
@@ -33,7 +33,7 @@ func New() *Mainloop {
 //
 // You cannot bind multiple functions to the same signal, and any attempt to
 // do so will raise an error.
-func (m *Mainloop) Bind(sig syscall.Signal, f func()) (err error) {
+func (m *Mainloop) Bind(sig os.Signal, f func()) (err error) {
 	for s, _ := range m.Bindings {
 		if sig == s {
 			err = SignalAlreadyBoundError
