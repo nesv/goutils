@@ -66,12 +66,7 @@ func (m *Mainloop) Start() {
 	signal.Notify(m.sigchan, sigs...)
 	for {
 		var sig = <-m.sigchan
-		for s, handler := range m.Bindings {
-			if s == sig {
-				handler()
-				break
-			}
-		}
+		m.Bindings[sig]()
 	}
 	return
 }
