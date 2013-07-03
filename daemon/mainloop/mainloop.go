@@ -27,7 +27,9 @@ type Mainloop struct {
 Initializes and returns a pointer to a new Mainloop.
 */
 func New() *Mainloop {
-	m := Mainloop{sigchan: make(chan os.Signal),
+	m := Mainloop{
+		sigchan:  make(chan os.Signal),
+		termchan: make(chan int),
 		Bindings: make(map[os.Signal]func())}
 	return &m
 }
