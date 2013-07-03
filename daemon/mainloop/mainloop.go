@@ -14,7 +14,7 @@ var (
 )
 
 /*
-This struct represents the mainloop for catching operating system signals in 
+This struct represents the mainloop for catching operating system signals in
 your application.
 */
 type Mainloop struct {
@@ -32,8 +32,8 @@ func New() *Mainloop {
 	return &m
 }
 
-/* 
-Bind an operating system signal to a handler function, prior to calling 
+/*
+Bind an operating system signal to a handler function, prior to calling
 Mainloop.Start().
 
 You cannot bind multiple functions to the same signal, and any attempt to
@@ -89,5 +89,5 @@ Stops the mainloop.
 */
 func (m *Mainloop) Stop() {
 	go func() { m.termchan <- 1 }()
-	return 
+	return
 }
